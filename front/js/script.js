@@ -1,23 +1,27 @@
-console.log("hi mom");
+const url = 'http://localhost:3000/api/products';
+fetch(url)
+    .then(response => {
+        const json = response.json()
+        return json;
+    })
+    .then(data => {
+        displayItems(data)
+    })
+    .catch(err => console.log(err))
 
-const articlesFound = [];
+function displayItems (sofas) {
+    const section = document.getElementById ('items')
 
-// TODO use fetch api to get the products json
-
-fetch('http://localhost:3000/api/products')
-.then(data => {
-    return data.json();
-})
-.then(articles => {
-    insertArticles(articles);
-});
-
-const articleHolder = document.getElementById('articles');
-
-
-
-function insertArticles(articles) {
-    for (let i = 0; i < article.length; i++) {
-
-    }
+for (let i = 0; i < sofas.length; i++) {
+    const sofa = sofas[i];
+    section.innerHTML += `
+    <a href="./product.html?id=${sofa._id}">
+    <article>
+    <img src=${sofa.imageUrl} alt=${sofa.altTxt}>
+    <h3 class="productName">${sofa.name}</h3>
+    <p class="productDescription">${sofa.description}</p>
+    </article>
+    </a>
+    `
+}
 }
