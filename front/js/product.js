@@ -20,8 +20,9 @@ fetch(url)
 
         document.getElementById("addToCart").addEventListener("click", () => {
             const color = document.querySelector("#colors").value
+            console.log(color)
             if (color) {
-                const quantity = parseInt(document.querySelector("quantity").value)
+                const quantity = parseInt(document.querySelector("#quantity").value)
                 if (quantity > 0) {
                     let cart = {
                         products: []
@@ -34,7 +35,7 @@ fetch(url)
                         cart.products[index].quantity += quantity
                     } else {
                         const product = {
-                            _id: data._id,
+                            id: data._id,
                             quantity,
                             color
                         }
@@ -42,7 +43,7 @@ fetch(url)
                     }
 
                     localStorage.setItem("cart", JSON.stringify(cart))
-                    alert("!");
+                    alert("Product add!");
                 } else {
                     alert("quantity must greater than 1.")
                 }
@@ -51,7 +52,3 @@ fetch(url)
             }
         })
     })
-// TODO M7 add click event listener add to cart button
-// TODO create function to add selected product to cart
-// NOTE we need product ID, color and quantity so we can add it to the cart
-// [{productId: ..., color: ..., quantity: ...}, ... ]
