@@ -17,6 +17,39 @@ fetch(url)
         document.querySelector("#price").innerHTML = data.price
         document.querySelector("#description").innerHTML = data.description
         document.querySelector("#colors").innerHTML += colorOptions
+
+        document.getElementById("addToCart").addEventListener("click", () => {
+            const color = document.querySelector("#colors").value
+            if (color) {
+                const quantity = parseInt(document.querySelector("quantity").value)
+                if (quantity > 0) {
+                    let cart = {
+                        products: []
+                    }
+                    if (localStorage.getItem("cart")) {
+                        cart = JSON.parse(localStorage.getItem("cart"))
+                    }
+                    let index = cart.products.findIndex(product => product._id === data._id && product.colo === color)
+                    if (index >= 0) {
+                        cart.products[index].quantity += quantity
+                    } else {
+                        const product = {
+                            _id: data._id,
+                            quantity,
+                            color
+                        }
+                        cart.products.push(product)
+                    }
+
+                    localStorage.setItem("cart", JSON.stringify(cart))
+                    alert("!");
+                } else {
+                    alert("quantity must greater than 1.")
+                }
+            } else {
+                alert("Must select color.")
+            }
+        })
     })
 // TODO M7 add click event listener add to cart button
 // TODO create function to add selected product to cart
