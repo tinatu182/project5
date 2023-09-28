@@ -24,22 +24,20 @@ fetch(url)
             if (color) {
                 const quantity = parseInt(document.querySelector("#quantity").value)
                 if (quantity > 0) {
-                    let cart = {
-                        products: []
-                    }
+                    let cart = [];
                     if (localStorage.getItem("cart")) {
                         cart = JSON.parse(localStorage.getItem("cart"))
                     }
-                    let index = cart.products.findIndex(product => product._id === data._id && product.colo === color)
+                    let index = cart.findIndex(product => product.id === data._id && product.color === color)
                     if (index >= 0) {
-                        cart.products[index].quantity += quantity
+                        cart[index].quantity += quantity
                     } else {
                         const product = {
                             id: data._id,
                             quantity,
                             color
                         }
-                        cart.products.push(product)
+                        cart.push(product)
                     }
 
                     localStorage.setItem("cart", JSON.stringify(cart))
